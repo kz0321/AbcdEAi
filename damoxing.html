@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>问诊AbcdE</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        textarea {
+            width: 100%;
+            max-width: 400px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #outputText {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            font-size: 16px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>问诊AbcdE</h1>
+        <textarea id="inputText" rows="4" cols="50" placeholder="请输入您的问题..."></textarea><br>
+        <button onclick="callModel()">提交</button>
+        <h2>诊断：</h2>
+        <div id="outputText"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        async function callModel() {
+            const inputText = document.getElementById('inputText').value;
+            const apiKey = 'sk-5b9f2cbbd0474e9ea856c59ab539fbaf'; // 替换为你的API Key
+            const appId = '501582803cdd4a38b3e475d07575c7a2'; // 替换为你的APP ID
+            const url = `https://dashscope.aliyuncs.com/api/v1/apps/${appId}/completion`;
+
+            try {
+                const response = await axios.post(url, {
+                    input: {
+                        prompt: inputText
+                    }
+                }, {
+                    headers: {
+                        'Authorization': `Bearer ${apiKey}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.status === 200) {
+                    document.getElementById('outputText').innerText = response.data.output.text;
+                } else {
+                    document.getElementById('outputText').innerText = '请求失败：' + response.statusText;
+                }
+            } catch (error) {
+                document.getElementById('outputText').innerText = '发生错误：' + error.message;
+            }
+        }
+    </script>
+</body>
+</html>

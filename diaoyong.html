@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AbcdE</title>
+    <link rel="stylesheet" href="sets.css">
+    <title>Model Interaction</title>
+    <style>
+        /* 添加CSS样式 */
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        input[type="text"] {
+            margin-bottom: 10px;
+        }
+   
+    </style>
+    <script>
+        function sendRequest() {
+            // 获取用户输入的字符串
+            var userInput = document.getElementById('promptInput').value;
+
+            const url = "https://help.aliyun.com/zh/model-studio/user-guide/application-calling/?spm=0.0.0.i1"
+            const token = "sk-32dd4d571eaf4fdfb51f8f9a0fa4f1b3"
+
+            fetch(url, {
+                method: "POST",
+                body:JSON.stringify({prompt: userInput}),
+                headers: {
+                    "Authorization": token,
+                }
+            }).then(res=>{
+                document.getElementById('responseOutput').textContent = `${res.status} ${res.body}`
+                console.log(res)
+            }).catch(error => {
+                console.error(error)
+            })
+
+            // 创建一个新的 XMLHttpRequest 对象
+            // var xhr = new XMLHttpRequest();
+
+            // // 配置请求类型（POST），URL，以及是否异步
+            // xhr.open('POST', 'http://quickstart-20241123-p4v2.1706322327920521.cn-shanghai.pai-eas.aliyuncs.com/', true);
+
+            // // 设置请求头部，告诉服务器我们发送的是JSON数据
+            // xhr.setRequestHeader('Authorization', 'ODAzYjY3ZDU5NjZmYjRkM2NlYzI4NjkxMTNlYjRhYjEwY2I4YWY4NA==');
+            // xhr.setRequestHeader('Cotent-Type', 'application/json')
+            // // 定义响应类型为JSON
+            // xhr.responseType = 'json';
+        
+            // // 定义请求完成的回调函数
+            // xhr.onload = function () {
+            //     console.log(xhr.responses)
+            //     if (xhr.status >= 200 && xhr.status < 300) {
+            //         // 请求成功，显示后端返回的结果
+            //         document.getElementById('responseOutput').textContent = xhr.response.output;
+            //     } else {
+            //         // 处理请求错误
+            //         document.getElementById('responseOutput').textContent = 'Error: ' + xhr.status;
+            //     }
+            // };
+
+            // // 定义请求失败的回调函数
+            // xhr.onerror = function () {
+            //     document.getElementById('responseOutput').textContent = 'Request failed';
+            // };
+            // // 发送请求，包含用户输入的字符串
+            // xhr.send(JSON.stringify({
+            //     prompt: userInput
+            // }));
+            
+        }
+    </script>
+</head>
+<body>
+    <h2>Input Prompt for Model</h2>
+    <!-- 输入框，用于用户输入字符串 -->
+    <input type="text" id="promptInput" placeholder="输入您的症状">
+    <!-- 按钮，用于触发请求 -->
+    <button onclick="sendRequest()">Submit</button>
+    <!-- 显示后端返回的结果 -->
+    <h3>Model Output:</h3>
+    <pre id="responseOutput"></pre>
+    <a href="./p2.html"target="_blank"style="position: absolute; top: 600px; left: 1200px;"><button style="backgroundcolor: red; color: green">返回到上一页</button></a>
+</body>
+</html>

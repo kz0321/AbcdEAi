@@ -1,0 +1,25 @@
+body {
+    background: url(背景.jpg) no-repeat center center fixed;
+    /* 兼容浏览器版本 */
+    -webkit-background-size: cover;
+    -o-background-size: cover;                
+    background-size: cover;
+}
+.username-container {
+    position: relative; /* 使子元素的绝对定位相对于这个容器 */
+}
+
+.username-container label {
+    position: absolute;
+    top: 300px; /* 根据需要调整这个值 */
+    left: 630px; /* 根据需要调整这个值 */
+}
+.password-container {
+    position: relative; /* 使子元素的绝对定位相对于这个容器 */
+}
+
+.password-container label {
+    position: absolute;
+    top: 330px; /* 根据需要调整这个值 */
+    left: 630px; /* 根据需要调整这个值 */
+}
